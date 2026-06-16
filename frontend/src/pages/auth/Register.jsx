@@ -6,27 +6,31 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
-      const formData = new FormData();
+      // JSON data
+      const data = {
+        name,
+        email,
+        password,
+      };
 
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("image", image);
+      console.log(data);
 
-      await registerUser(formData);
+      await registerUser(data);
 
       alert("Registration Successful 🚀");
       navigate("/login");
-
     } catch (err) {
-      console.log(err);
-      alert(err.response?.data?.message || "Register Failed");
+      console.log("REGISTER ERROR:", err.response || err);
+
+      alert(
+        err.response?.data?.message ||
+        "Register Failed"
+      );
     }
   };
 
@@ -59,15 +63,8 @@ function Register() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-3 mb-4 rounded-xl bg-slate-800 text-white outline-none"
+          className="w-full p-3 mb-6 rounded-xl bg-slate-800 text-white outline-none"
           onChange={(e) => setPassword(e.target.value)}
-        />
-
-        {/* IMAGE */}
-        <input
-          type="file"
-          className="w-full p-3 mb-6 rounded-xl bg-slate-800 text-white"
-          onChange={(e) => setImage(e.target.files[0])}
         />
 
         {/* BUTTON */}

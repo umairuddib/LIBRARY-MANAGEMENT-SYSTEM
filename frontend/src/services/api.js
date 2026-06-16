@@ -2,6 +2,7 @@ import axios from "axios";
 
 // ================= BASE API =================
 const API = axios.create({
+
   baseURL: "http://localhost:5000/api",
   headers: {
     "Content-Type": "application/json",
@@ -11,6 +12,7 @@ const API = axios.create({
 // ================= TOKEN ATTACH =================
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
+  
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -21,22 +23,17 @@ API.interceptors.request.use((config) => {
 
 // ================= AUTH =================
 export const registerUser = (data) => {
-  return API.post("/auth/register", data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  return API.post("/auth/register", data);
 };
 
-export const loginUser = (data) => API.post("/auth/login", data);
+export const loginUser = (data) => {
+  return API.post("/auth/login", data);
+};
 
 // ================= BOOKS =================
 export const getBooks = () => API.get("/books");
 
-export const addBook = (data) =>
-  API.post("/books", data, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+export const addBook = (data) => API.post("/books", data);
 
 export const deleteBook = (id) => API.delete(`/books/${id}`);
 
