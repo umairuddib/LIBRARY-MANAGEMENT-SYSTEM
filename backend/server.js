@@ -7,7 +7,10 @@ const app = express();
 
 // ===================== MIDDLEWARE =====================
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://library-management-system-sage-beta.vercel.app"
+  ],
   credentials: true,
 }));
 
